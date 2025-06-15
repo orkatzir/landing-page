@@ -55,7 +55,7 @@ function OorAnalysis() {
     <Box sx={{ width: '100%', mt: 4 }}>
       {/* Header */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, textAlign: 'left', mb: 3 }}>
-        <Box sx={{ p: 1.5, bgcolor: 'secondary.main', borderRadius: '50%', display: 'inline-flex' }}>
+        <Box sx={{ p: 1.5, bgcolor: 'primary.main', borderRadius: '50%', display: 'inline-flex' }}>
           <TrackChangesIcon sx={{ color: 'white' }} />
         </Box>
         <Box>

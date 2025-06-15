@@ -29,9 +29,10 @@ function App() {
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         
         <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, py: 3 }}>
+          
           {/* Header */}
-          <Box component="header" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mb: 6 }}>
-              <img src={klaLogo} alt="KLA Logo" style={{ height: '24px' }} />
+          <Box component="header" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mb: 4 }}>
+              <img src={klaLogo} alt="KLA Logo" style={{ height: '32px' }} />
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <MailOutlineIcon color="action" />
                   <Typography variant="body2" color="text.secondary">user@kla.com</Typography>
@@ -39,20 +40,21 @@ function App() {
           </Box>
 
           {/* Main Content Area */}
-          <Box component="main" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Box sx={{ textAlign: 'center' }}>
+          <Box component="main">
+            {/* --- CENTER THE HEADER TEXT --- */}
+            {/* Change textAlign from 'left' to 'center' */}
+            <Box sx={{ textAlign: 'center', mb: 2 }}>
               <Typography variant="h4" gutterBottom>
                 Analytics Dashboard
               </Typography>
-              <Typography variant="subtitle1" sx={{ mb: 4 }}>
+              <Typography variant="subtitle1">
                 Select your analysis type and configure the parameters to generate insights
               </Typography>
             </Box>
 
             <NavigationTabs currentTab={currentTab} onTabChange={handleTabChange} />
 
-            {/* --- HIDE EMAIL FIELD ON LINKS PAGE --- */}
-            {/* We only render this box if the current tab is NOT the Links tab (index 3) */}
+            {/* Email Field */}
             {currentTab !== 3 && (
               <Box sx={{ width: '100%', maxWidth: '500px', mt: 4 }}>
                 <TextField
@@ -79,7 +81,7 @@ function App() {
               </Box>
             )}
             
-            {/* Conditionally rendered pages */}
+            {/* Page Content */}
             {currentTab === 0 && <BuyersKpiAnalysis email={fullEmail} />}
             {currentTab === 1 && <OorAnalysis email={fullEmail} />}
             {currentTab === 2 && <CostCenterAnalysis email={fullEmail} />}

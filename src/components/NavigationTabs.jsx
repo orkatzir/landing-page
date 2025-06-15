@@ -1,6 +1,6 @@
 // src/components/NavigationTabs.jsx
 import React from 'react';
-import { Paper, Button, Stack } from '@mui/material';
+import { Box, Tabs, Tab } from '@mui/material';
 import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import RequestQuoteOutlinedIcon from '@mui/icons-material/RequestQuoteOutlined';
@@ -13,37 +13,65 @@ const navItems = [
   { label: 'Links', icon: <LinkOutlinedIcon /> },
 ];
 
+function a11yProps(index) {
+  // Helper function for accessibility props
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 function NavigationTabs({ currentTab, onTabChange }) {
+  const handleChange = (event, newValue) => {
+    onTabChange(newValue);
+  };
+
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        p: 1,
-        border: '1px solid #dee2e6',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-      }}
-    >
-      <Stack direction="row" spacing={1}>
+    <Box sx={{ width: '100%', borderBottom: 1, borderColor: 'divider' }}>
+      <Tabs
+        value={currentTab}
+        onChange={handleChange}
+        variant="fullWidth"
+        textColor="primary"
+        aria-label="analytics dashboard tabs"
+        // --- CHANGE 1: Hide the default full-width indicator ---
+        TabIndicatorProps={{
+          sx: {
+            display: 'none',
+          },
+        }}
+      >
         {navItems.map((item, index) => (
-          <Button
+          <Tab
             key={item.label}
-            onClick={() => onTabChange(index)}
-            variant={currentTab === index ? 'contained' : 'text'}
-            startIcon={item.icon}
+            icon={item.icon}
+            iconPosition="start"
+            label={item.label}
+            {...a11yProps(index)}
             sx={{
-              p: '8px 140px',
-              color: currentTab === index ? 'white' : 'text.primary',
-              backgroundColor: currentTab === index ? 'primary.main' : 'transparent',
-              '&:hover': {
-                backgroundColor: currentTab === index ? 'primary.dark' : 'action.hover',
+              textTransform: 'none',
+              fontWeight: 600,
+              position: 'relative', // Needed for the custom indicator positioning
+              // --- CHANGE 2: Create a new custom indicator on the selected tab ---
+              '&.Mui-selected': {
+                color: 'primary.main', // Ensure selected text is colored
+              },
+              // The ::after pseudo-element becomes our new, bold indicator
+              '&.Mui-selected::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: 0,
+                left: '20%', // Start 20% from the left edge of the tab
+                width: '60%', // Make the indicator 60% of the tab's width
+                height: '3px', // A bolder height
+                borderRadius: '3px', // Soft rounded corners
+                bgcolor: 'primary.main', // Use the purple theme color
               },
             }}
-          >
-            {item.label}
-          </Button>
+          />
         ))}
-      </Stack>
-    </Paper>
+      </Tabs>
+    </Box>
   );
 }
 

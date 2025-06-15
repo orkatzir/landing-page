@@ -37,7 +37,7 @@ function LinksPage() {
     <Box sx={{ width: '100%', mt: 4 }}>
       {/* Card Header remains consistent with other pages */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, textAlign: 'left', mb: 4 }}>
-        <Box sx={{ p: 1.5, bgcolor: 'secondary.main', borderRadius: '12px', display: 'inline-flex' }}>
+        <Box sx={{ p: 1.5, bgcolor: 'primary.main', borderRadius: '12px', display: 'inline-flex' }}>
           <LinkIcon sx={{ color: 'white' }} />
         </Box>
         <Box>
