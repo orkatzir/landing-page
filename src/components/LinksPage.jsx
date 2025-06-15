@@ -1,43 +1,51 @@
 // src/components/LinksPage.jsx
 import React from 'react';
 import {
-  Paper, Box, Typography, Grid, Card, CardContent, CardActionArea, Link as MuiLink
+  Box, Typography, Grid, Card, CardContent, CardActionArea, Link as MuiLink
 } from '@mui/material';
 
-// Import relevant icons for our links
+// Import the main icon for the header and the new icons for each card
 import LinkIcon from '@mui/icons-material/Link';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import StorefrontIcon from '@mui/icons-material/Storefront';
-import CorporateFareIcon from '@mui/icons-material/CorporateFare';
+import WarehouseOutlinedIcon from '@mui/icons-material/WarehouseOutlined';
+import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
+import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined'; // <-- Import new icon
 
-// Updated links array to include descriptions and icons
+// Updated links array with the new dashboard
 const links = [
   {
-    name: 'Walla! News',
-    description: 'Leading Israeli news portal.',
-    url: 'https://www.walla.co.il',
-    icon: <NewspaperIcon sx={{ fontSize: 40 }} color="primary" />
+    name: 'Warehouse Issues',
+    description: 'Track and manage warehouse incidents and reports.',
+    url: '#', // TODO: Replace with your actual URL
+    icon: <WarehouseOutlinedIcon sx={{ fontSize: 40 }} color="primary" />
   },
   {
-    name: 'eBay Marketplace',
-    description: 'Global online shopping & auctions.',
-    url: 'https://www.ebay.com',
-    icon: <StorefrontIcon sx={{ fontSize: 40 }} color="primary" />
+    name: 'QBR Dashboard',
+    description: 'Review data for Quarterly Business Reviews.',
+    url: '#', // TODO: Replace with your actual URL
+    icon: <AssessmentOutlinedIcon sx={{ fontSize: 40 }} color="primary" />
   },
   {
-    name: 'KLA Official Site',
-    description: 'Corporate information and resources.',
-    url: 'https://www.kla.com',
-    icon: <CorporateFareIcon sx={{ fontSize: 40 }} color="primary" />
+    name: 'Buyers KPI Dashboard',
+    description: 'Deep dive into Key Performance Indicators for buyers.',
+    url: '#', // TODO: Replace with your actual URL
+    icon: <LeaderboardOutlinedIcon sx={{ fontSize: 40 }} color="primary" />
+  },
+  // --- NEW LINK ADDED HERE ---
+  {
+    name: 'Spend BI Dashboard',
+    description: 'Analyze and visualize company spend data.',
+    url: '#', // TODO: Replace with your actual URL
+    icon: <MonetizationOnOutlinedIcon sx={{ fontSize: 40 }} color="primary" />
   },
 ];
 
 function LinksPage() {
   return (
     <Box sx={{ width: '100%', mt: 4 }}>
-      {/* Card Header remains consistent with other pages */}
+      {/* Card Header */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, textAlign: 'left', mb: 4 }}>
-        <Box sx={{ p: 1.5, bgcolor: 'primary.main', borderRadius: '12px', display: 'inline-flex' }}>
+        <Box sx={{ p: 1.5, bgcolor: 'secondary.main', borderRadius: '12px', display: 'inline-flex' }}>
           <LinkIcon sx={{ color: 'white' }} />
         </Box>
         <Box>
@@ -49,12 +57,12 @@ function LinksPage() {
       </Box>
 
       {/* Grid container for the link cards */}
-      {/* --- I'VE INCREASED THE SPACING HERE --- */}
-      <Grid container spacing={8}>
+      <Grid container spacing={5}>
         {links.map((link) => (
-          <Grid item xs={12} sm={6} md={4} key={link.name}>
+          // The grid item logic now handles responsive columns
+          <Grid item xs={12} sm={6} md={4} lg={3} key={link.name}>
             <Card
-              component={MuiLink} // Make the Card itself a link
+              component={MuiLink}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"

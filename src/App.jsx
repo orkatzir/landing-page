@@ -33,10 +33,7 @@ function App() {
           {/* Header */}
           <Box component="header" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mb: 4 }}>
               <img src={klaLogo} alt="KLA Logo" style={{ height: '32px' }} />
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <MailOutlineIcon color="action" />
-                  <Typography variant="body2" color="text.secondary">user@kla.com</Typography>
-              </Box>
+
           </Box>
 
           {/* Main Content Area */}
