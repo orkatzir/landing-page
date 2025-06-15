@@ -1,35 +1,41 @@
 // src/App.jsx
+
 import React, { useState } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
-import { Box, Typography, CssBaseline, Container } from '@mui/material'; // Import Container
+import { Box, Typography, CssBaseline, Container, TextField, InputAdornment } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
 import theme from './theme';
 import klaLogo from './assets/kla-logo.png';
 import NavigationTabs from './components/NavigationTabs';
 import BuyersKpiAnalysis from './components/BuyersKpiAnalysis';
-import OorAnalysis from './components/OORAnalysis';
+import OorAnalysis from './components/OorAnalysis';
 import CostCenterAnalysis from './components/CostCenterAnalysis';
 import LinksPage from './components/LinksPage';
 
 function App() {
   const [currentTab, setCurrentTab] = useState(0);
+  const [emailUsername, setEmailUsername] = useState(''); 
 
   const handleTabChange = (newTab) => {
     setCurrentTab(newTab);
   };
+
+  const fullEmail = emailUsername ? `${emailUsername}@kla.com` : '';
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         
-        {/* THIS CONTAINER WRAPS AND WIDENS EVERYTHING */}
-        <Container maxWidth="xl" sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, py: 3 }}>
+        <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, py: 3 }}>
           {/* Header */}
-          <Box component="header" sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', mb: 6 }}>
-              <img src={klaLogo} alt="KLA Logo" style={{ height: '40px' }} />
-
+          <Box component="header" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mb: 6 }}>
+              <img src={klaLogo} alt="KLA Logo" style={{ height: '24px' }} />
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <MailOutlineIcon color="action" />
+                  <Typography variant="body2" color="text.secondary">user@kla.com</Typography>
+              </Box>
           </Box>
 
           {/* Main Content Area */}
@@ -44,18 +50,46 @@ function App() {
             </Box>
 
             <NavigationTabs currentTab={currentTab} onTabChange={handleTabChange} />
+
+            {/* --- HIDE EMAIL FIELD ON LINKS PAGE --- */}
+            {/* We only render this box if the current tab is NOT the Links tab (index 3) */}
+            {currentTab !== 3 && (
+              <Box sx={{ width: '100%', maxWidth: '500px', mt: 4 }}>
+                <TextField
+                  fullWidth
+                  label="Email for Reports"
+                  variant="outlined"
+                  value={emailUsername}
+                  onChange={(e) => setEmailUsername(e.target.value)}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <MailOutlineIcon color="action" />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Typography variant="body1" color="text.secondary">
+                          @kla.com
+                        </Typography>
+                      </InputAdornment>
+                    )
+                  }}
+                />
+              </Box>
+            )}
             
-            {/* All content cards will now appear inside this wider area */}
-            {currentTab === 0 && <BuyersKpiAnalysis />}
-            {currentTab === 1 && <OorAnalysis />}
-            {currentTab === 2 && <CostCenterAnalysis />}
+            {/* Conditionally rendered pages */}
+            {currentTab === 0 && <BuyersKpiAnalysis email={fullEmail} />}
+            {currentTab === 1 && <OorAnalysis email={fullEmail} />}
+            {currentTab === 2 && <CostCenterAnalysis email={fullEmail} />}
             {currentTab === 3 && <LinksPage />}
           </Box>
           
           {/* Footer */}
           <Box component="footer" sx={{ mt: 'auto', pt: 4, textAlign: 'center' }}>
               <Typography variant="caption" color="text.secondary">
-                  KLA
+                  Analytics Dashboard • Powered by Advanced KPI Analysis
               </Typography>
           </Box>
         </Container>
